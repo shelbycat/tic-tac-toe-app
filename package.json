@@ -1,9 +1,6 @@
 {
-  "workspaces": [
-    "./packages/"
-  ],
   "scripts": {
-    "start": "npm start --workspaces",
+    "start": "cd ./t3game ; npm start",
     "prettify": "prettier --write ."
   },
   "devDependencies": {
