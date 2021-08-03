@@ -1,0 +1,15 @@
+{
+  "workspaces": [
+    "./packages/"
+  ],
+  "scripts": {
+    "start": "npm start --workspaces",
+    "prettify": "prettier --write ."
+  },
+  "devDependencies": {
+    "@ionic/cli": "^6.16.3",
+    "cordova-res": "^0.15.3",
+    "native-run": "^1.4.0",
+    "prettier": "^2.3.2"
+  }
+}
