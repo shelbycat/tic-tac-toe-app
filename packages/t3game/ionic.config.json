@@ -1,7 +1,0 @@
-{
-  "name": "t3game",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
