@@ -13,7 +13,7 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-menu side="start" menuId="first" contentId="main" auto-hide="true">
+  <ion-menu side="start" menuId="first" contentId="main">
     <ion-header>
       <ion-toolbar color="tertiary">
         <ion-buttons slot="start">
@@ -26,6 +26,14 @@
     </ion-header>
     <ion-content>
       <ion-list>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item
+            [routerLink]="['games']"
+            routerLinkActive="router-link-active"
+          >
+            Games Page
+          </ion-item>
+        </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
           <ion-item
             [routerLink]="['home']"

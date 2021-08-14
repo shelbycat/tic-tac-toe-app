@@ -1,25 +1,41 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { TicTacToeComponent } from './games/tic-tac-toe/tic-tac-toe.component';
+import { GameHolderPageComponent } from './pages/game-holder-page/game-holder-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home',
+  },
   {
     path: 'home',
     component: HomePageComponent,
   },
   {
-    path: 'games/t3',
-    component: TicTacToeComponent,
+    path: 'games',
+    component: GameHolderPageComponent,
+    children: [
+      {
+        path: '',
+        component: PageNotFoundComponent,
+      },
+      {
+        path: 't3',
+        component: TicTacToeComponent,
+      },
+      {
+        path: 't4',
+        component: TicTacToeComponent,
+      },
+    ],
   },
   {
-    path: '*',
-    redirectTo: 'home',
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'home',
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 @NgModule({
