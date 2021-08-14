@@ -29,8 +29,30 @@ a {
   text-decoration: none;
 }
 
-ion-title {
-  a {
-    color: var(--color);
-  }
+[color="primary"] a {
+  color: var(--ion-color-primary-contrast);
+}
+[color="secondary"] a {
+  color: var(--ion-color-secondary-contrast);
+}
+[color="tertiary"] a {
+  color: var(--ion-color-tertiary-contrast);
+}
+[color="success"] a {
+  color: var(--ion-color-success-contrast);
+}
+[color="warning"] a {
+  color: var(--ion-color-warning-contrast);
+}
+[color="danger"] a {
+  color: var(--ion-color-danger-contrast);
+}
+[color="dark"] a {
+  color: var(--ion-color-dark-contrast);
+}
+[color="medium"] a {
+  color: var(--ion-color-medium-contrast);
+}
+[color="light"] a {
+  color: var(--ion-color-light-contrast);
 }
