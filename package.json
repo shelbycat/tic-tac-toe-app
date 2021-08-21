@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "cd ./t3game && npm start",
-    "build": "cd ./t3game && npm run build",
+    "start": "cd ./games && npm start",
+    "build": "cd ./games && npm run build",
     "prettify": "prettier --write ."
   },
   "devDependencies": {
