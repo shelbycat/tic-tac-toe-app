@@ -1,1 +1,44 @@
-<div class="game"></div>
+<div class="game">
+  <div class="header">
+    <h2 *ngIf="!currentGameState.winner">
+      Player {{ currentGameState.currentPlayer }}'s turn
+    </h2>
+    <h2 *ngIf="currentGameState.winner">
+      Player {{ currentGameState.winner }} won!
+    </h2>
+  </div>
+  <div class="board">
+    <ng-template
+      ngFor
+      let-square
+      [ngForOf]="currentGameState.squares"
+      let-index="index"
+    >
+      <button
+        *ngIf="square"
+        (click)="clickSquare(index)"
+        [disabled]="square !== blankSquare || currentGameState.winner"
+      >
+        <!-- {{ square || index }} -->
+        {{ square }}
+      </button>
+    </ng-template>
+  </div>
+  <div class="console">
+    <button (click)="restart()">Restart</button>
+    <button (click)="undo()">Undo</button>
+    <button (click)="redo()">Redo</button>
+    <br />
+    <div class="history">
+      <h4>History</h4>
+      <ol>
+        <li
+          *ngFor="let move of history | slice: 1; index as index"
+          [class.selected]="index + 1 === currentStepPointer"
+        >
+          {{ parseMoveStep(move) }}
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

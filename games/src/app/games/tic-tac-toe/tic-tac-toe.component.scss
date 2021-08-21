@@ -1,5 +1,52 @@
 .game {
+  padding: 20px;
   height: 400px;
   width: 600px;
   background-color: darkslategrey;
+  display: flex;
+  flex-wrap: wrap;
+  .header {
+    flex-basis: 100%;
+  }
+}
+
+.console {
+  padding: 0px 20px;
+  button {
+    font-size: larger;
+    padding: 0.5em;
+    margin: 0.5em;
+  }
+}
+
+.history .selected {
+  font-weight: bold;
+}
+
+.board {
+  height: 210px;
+  width: 210px;
+  flex-shrink: 0;
+  margin: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: space-around;
+  button {
+    height: 70px;
+    width: 70px;
+    flex: 0 0 70px;
+    background-color: darkgrey;
+    color: black;
+    font-size: xx-large;
+    font-weight: bold;
+    box-shadow: 0 0 1.5px 2px black inset;
+
+    &:hover:not(:disabled) {
+      box-shadow: 0 0 5px 3px black inset;
+    }
+    &:active:not(:disabled) {
+      box-shadow: 0 0 10px 5px black inset;
+    }
+  }
 }
