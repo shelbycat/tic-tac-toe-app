@@ -20,10 +20,6 @@ const routes: Routes = [
     component: GameHolderPageComponent,
     children: [
       {
-        path: '',
-        component: PageNotFoundComponent,
-      },
-      {
         path: 't3',
         component: TicTacToeComponent,
       },

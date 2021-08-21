@@ -6,9 +6,19 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TicTacToeComponent } from './games/tic-tac-toe/tic-tac-toe.component';
+import { GameHolderPageComponent } from './pages/game-holder-page/game-holder-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    PageNotFoundComponent,
+    HomePageComponent,
+    GameHolderPageComponent,
+    TicTacToeComponent,
+  ],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
