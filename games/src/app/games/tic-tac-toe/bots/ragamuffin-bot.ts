@@ -9,4 +9,7 @@ export class RagamuffinBot implements Bot {
     });
     return getRandomItem(openSquares);
   }
+  getMessage(gameState: GameState) {
+    return 'Hold on.  The ragamuffin is thinking.';
+  }
 }

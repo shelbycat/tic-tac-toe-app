@@ -1,7 +1,12 @@
 declare type Bot = {
   initialize: () => void;
   /** return the square to mark **/
-  getNextMove: (gameState: GameState) => Coords;
+  getNextMove: (
+    gameState: GameState
+  ) => Coords | import('rxjs').Observable<Coords>;
+  getMessage: (
+    gameState: GameState
+  ) => string | import('rxjs').Observable<string>;
 };
 
 declare type BotConfig = {

@@ -1,13 +1,6 @@
 <div class="game">
   <div class="header">
-    <h2>
-      <ng-template [ngIf]="!currentGameState.winner">
-        Player {{ currentGameState.currentPlayer }}'s turn
-      </ng-template>
-      <ng-template [ngIf]="currentGameState.winner">
-        Player {{ currentGameState.winner }} won!
-      </ng-template>
-    </h2>
+    <h2>{{ message$ | async }}</h2>
   </div>
   <div class="console">
     <div class="board">
@@ -19,8 +12,8 @@
       >
         <button
           *ngIf="square"
-          (click)="clickSquare(index)"
-          [disabled]="square !== blankSquare || currentGameState.winner"
+          (click)="markSquare(index)"
+          [disabled]="squareDisabled(square)"
         >
           <!-- {{ square || index }} -->
           {{ square }}
@@ -39,8 +32,9 @@
       </ol>
     </div>
     <div class="buttons vertical">
-      <button>Play as X</button>
-      <button>Play as O</button>
+      <button (click)="playAs('both')">Couch Co-Op</button>
+      <button (click)="playAs('X')">Play as X</button>
+      <button (click)="playAs('O')">Play as O</button>
       <button (click)="restart()">Restart</button>
       <button (click)="undo()">Undo</button>
       <button (click)="redo()">Redo</button>
