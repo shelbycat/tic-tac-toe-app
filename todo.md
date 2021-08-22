@@ -1,0 +1,55 @@
+## Name Different AIS with cat names.
+
+- Ragdoll
+- Munchkin
+- Ragamuffin
+- Maine Coon
+- Siamese
+- Sphynx
+- Persian
+- Bengal
+- Savannah
+- Siberian
+- British Shorthair
+- Scottish Fold
+- Norwegian Forest
+- Egyptian Mau
+
+- American Shorthair
+- Russian Blue
+- Turkish Angora
+- Exotic Shorthair
+- Himalayan cat
+- Bombay cat
+- Birman
+- Abyssinian
+- Chartreux
+- Toyger
+- Manx cat
+- Burmese cat
+- Somali cat
+- Singapura cat
+- Kinkalow
+- Donskoy
+- Havana Brown
+- Balinese cat
+- European shorthair
+- Van cat
+- American Curl
+- LaPerm
+- Korat
+- Ocicat
+- Cymric
+- Lykoi
+- Tonkinese cat
+- Burmilla
+- Selkirk Rex
+- British Longhair
+- American Wirehair
+- Peterbald
+- Thai cat
+- Chausie
+- Oriental Shorthair
+- Snowshoe cat
+- Cornish Rex
+- Japanese Bobtail
