@@ -1,34 +1,32 @@
 <div class="game">
   <div class="header">
-    <h2 *ngIf="!currentGameState.winner">
-      Player {{ currentGameState.currentPlayer }}'s turn
+    <h2>
+      <ng-template [ngIf]="!currentGameState.winner">
+        Player {{ currentGameState.currentPlayer }}'s turn
+      </ng-template>
+      <ng-template [ngIf]="currentGameState.winner">
+        Player {{ currentGameState.winner }} won!
+      </ng-template>
     </h2>
-    <h2 *ngIf="currentGameState.winner">
-      Player {{ currentGameState.winner }} won!
-    </h2>
-  </div>
-  <div class="board">
-    <ng-template
-      ngFor
-      let-square
-      [ngForOf]="currentGameState.squares"
-      let-index="index"
-    >
-      <button
-        *ngIf="square"
-        (click)="clickSquare(index)"
-        [disabled]="square !== blankSquare || currentGameState.winner"
-      >
-        <!-- {{ square || index }} -->
-        {{ square }}
-      </button>
-    </ng-template>
   </div>
   <div class="console">
-    <button (click)="restart()">Restart</button>
-    <button (click)="undo()">Undo</button>
-    <button (click)="redo()">Redo</button>
-    <br />
+    <div class="board">
+      <ng-template
+        ngFor
+        let-square
+        [ngForOf]="currentGameState.squares"
+        let-index="index"
+      >
+        <button
+          *ngIf="square"
+          (click)="clickSquare(index)"
+          [disabled]="square !== blankSquare || currentGameState.winner"
+        >
+          <!-- {{ square || index }} -->
+          {{ square }}
+        </button>
+      </ng-template>
+    </div>
     <div class="history">
       <h4>History</h4>
       <ol>
@@ -39,6 +37,13 @@
           {{ parseMoveStep(move) }}
         </li>
       </ol>
+    </div>
+    <div class="buttons vertical">
+      <button>Play as X</button>
+      <button>Play as O</button>
+      <button (click)="restart()">Restart</button>
+      <button (click)="undo()">Undo</button>
+      <button (click)="redo()">Redo</button>
     </div>
   </div>
 </div>

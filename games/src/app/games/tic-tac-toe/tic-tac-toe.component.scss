@@ -11,22 +11,42 @@
 }
 
 .console {
-  padding: 0px 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .buttons.vertical {
+    display: flex;
+    flex-direction: column;
+  }
   button {
     font-size: larger;
     padding: 0.5em;
     margin: 0.5em;
   }
 }
+.header {
+  button {
+    font-size: large;
+    padding: 0.5em;
+    margin: 0 0.5em;
+  }
+}
 
-.history .selected {
-  font-weight: bold;
+.history {
+  h4 {
+    text-align: center;
+  }
+  .selected {
+    font-weight: bold;
+  }
 }
 
 .board {
   height: 210px;
   width: 210px;
   flex-shrink: 0;
+  align-self: center;
   margin: 0;
   display: flex;
   flex-flow: row wrap;
@@ -35,6 +55,8 @@
   button {
     height: 70px;
     width: 70px;
+    margin: 0;
+    padding: 0;
     flex: 0 0 70px;
     background-color: darkgrey;
     color: black;

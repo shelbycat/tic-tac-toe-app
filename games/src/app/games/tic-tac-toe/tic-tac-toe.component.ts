@@ -16,6 +16,7 @@ export class TicTacToeComponent implements OnInit {
   readonly blankSquare = blankSquare;
   history = [new GameState()];
   currentStepPointer = 0;
+  playerSymbol: 'X' | 'O' = 'X';
 
   get currentGameState() {
     return this.history[this.currentStepPointer];
