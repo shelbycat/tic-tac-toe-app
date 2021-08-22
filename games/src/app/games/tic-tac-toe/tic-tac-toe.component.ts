@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
+import { takeWhile, tap } from 'rxjs/operators';
 import { RagamuffinBot } from './bots/ragamuffin-bot';
 import {
   GameState,
@@ -21,6 +22,7 @@ export class TicTacToeComponent implements OnInit {
   playerSymbol: 'X' | 'O' = 'X';
   bot: Bot = new RagamuffinBot();
   message$: Observable<string> = of('Welcome to Tic Tac Toe.  X goes first.');
+  botAnswerSub: Subscription;
   couchCoOp = true;
 
   get currentGameState() {
@@ -36,6 +38,7 @@ export class TicTacToeComponent implements OnInit {
   }
 
   markSquare(markSquare: number) {
+    this.botAnswerSub?.unsubscribe();
     const i = validateCoords(markSquare);
     console.log(i);
     const oldState = this.currentGameState;
@@ -45,14 +48,11 @@ export class TicTacToeComponent implements OnInit {
     if (successfulMove) {
       this.history.splice(this.currentStepPointer + 1, 10, newState);
       this.currentStepPointer++;
-      if (oldState.currentPlayer === this.playerSymbol) {
-        this.startBotCountdown();
-      }
     }
-    this.updateMessage();
+    this.updateGameState();
   }
 
-  updateMessage() {
+  updateGameState() {
     if (this.currentGameState.winner) {
       if (this.currentGameState.winner === 'Tie') {
         this.setMessage(`Cat's Game`);
@@ -64,32 +64,55 @@ export class TicTacToeComponent implements OnInit {
     } else if (this.playerSymbol === this.currentGameState.currentPlayer) {
       this.setMessage('Your turn');
     } else {
-      this.setMessage(this.bot.getMessage(this.currentGameState));
+      this.startBotCountdown();
     }
   }
 
   startBotCountdown() {
     console.log('Bot Countdown Started');
+    const botMessage$ = this.bot.getMessage(this.currentGameState);
+    const botNextMove$ = this.bot.getNextMove(this.currentGameState).pipe(
+      takeWhile(
+        () =>
+          !this.couchCoOp &&
+          this.playerSymbol !== this.currentGameState.currentPlayer
+      ),
+      tap((value) => this.markSquare(value))
+    );
+    this.botAnswerSub = botNextMove$.subscribe();
+    this.setMessage(botMessage$);
   }
 
   restart() {
     this.currentStepPointer = 0;
     this.history = [new GameState()];
-    this.updateMessage();
+    this.updateGameState();
   }
   undo() {
     if (this.currentStepPointer < 1) {
       return;
     }
     this.currentStepPointer--;
-    this.updateMessage();
+    if (
+      this.currentGameState.lastPlayer === this.playerSymbol &&
+      !this.couchCoOp
+    ) {
+      this.currentStepPointer--;
+    }
+    this.updateGameState();
   }
   redo() {
     if (this.currentStepPointer + 2 > this.history.length) {
       return;
     }
     this.currentStepPointer++;
-    this.updateMessage();
+    if (
+      this.currentGameState.lastPlayer === this.playerSymbol &&
+      !this.couchCoOp
+    ) {
+      this.currentStepPointer++;
+    }
+    this.updateGameState();
   }
   playAs(s: 'X' | 'O' | 'both') {
     if (s === 'both') {
@@ -101,7 +124,9 @@ export class TicTacToeComponent implements OnInit {
     this.restart();
   }
 
-  parseMoveStep(move: GameState) {
+  /***** Presentation Logic *****/
+
+  displayMoveStep(move: GameState) {
     const player = getPlayerString(move.lastPlayer);
     const position = getCoordsString(move.lastSquare);
     return `${player} chose ${position}`;

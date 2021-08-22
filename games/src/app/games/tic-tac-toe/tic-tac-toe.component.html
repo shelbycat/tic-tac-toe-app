@@ -27,7 +27,7 @@
           *ngFor="let move of history | slice: 1; index as index"
           [class.selected]="index + 1 === currentStepPointer"
         >
-          {{ parseMoveStep(move) }}
+          {{ displayMoveStep(move) }}
         </li>
       </ol>
     </div>
