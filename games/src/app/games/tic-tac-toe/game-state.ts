@@ -33,11 +33,8 @@ export class GameState {
   }
   mark(i: Coords) {
     if (!i || this.squares[i] !== blankSquare || this.winner) {
-      console.log(!i, this.squares[i] !== blankSquare, this.winner);
       return false;
     }
-    console.log('Hello', this.currentPlayer);
-    console.log(`Marking ${i}`);
     this.lastSquare = i;
     this.squares[i] = this.currentPlayer;
     this.turnCount++;

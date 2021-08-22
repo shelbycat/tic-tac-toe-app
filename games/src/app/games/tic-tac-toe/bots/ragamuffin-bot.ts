@@ -10,7 +10,6 @@ export class RagamuffinBot implements Bot {
       (i) => gameState.squares[i] === blankSquare
     );
     const mySquare = getRandomItem(openSquares);
-    console.log(mySquare);
     return of(mySquare).pipe(delay(3500));
   }
   getMessage(gameState: GameState) {

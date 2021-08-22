@@ -40,7 +40,6 @@ export class TicTacToeComponent implements OnInit {
   markSquare(markSquare: number) {
     this.botAnswerSub?.unsubscribe();
     const i = validateCoords(markSquare);
-    console.log(i);
     const oldState = this.currentGameState;
     const newState = new GameState(oldState);
     const successfulMove = newState.mark(i);
@@ -69,7 +68,6 @@ export class TicTacToeComponent implements OnInit {
   }
 
   startBotCountdown() {
-    console.log('Bot Countdown Started');
     const botMessage$ = this.bot.getMessage(this.currentGameState);
     const botNextMove$ = this.bot.getNextMove(this.currentGameState).pipe(
       takeWhile(
