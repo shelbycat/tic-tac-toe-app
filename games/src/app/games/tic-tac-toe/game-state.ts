@@ -108,3 +108,5 @@ export const validateCoords = (i: number): Coords => {
     throw new Error(`Got unexpected coordinate value ${i}`);
   }
 };
+
+export const getAllCoords = () => [1, 2, 3, 4, 5, 6, 7, 8, 9] as Coords[];
