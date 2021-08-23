@@ -34,13 +34,7 @@ export class TicTacToeComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    this.markSquare(1);
-    this.markSquare(4);
-    this.markSquare(2);
-    this.markSquare(5);
-    this.markSquare(6);
-  }
+  ngOnInit() {}
 
   setMessage(value: string | Observable<string>) {
     this.message$ = value instanceof Observable ? value : of(value);
