@@ -8,6 +8,7 @@ export class GameState {
   public turnCount: number;
   public winner: SquareValue | 'Tie' = null;
   public winningSquares?: WinningSquaresArray = undefined;
+  public winningLine?: { start: Coords; end: Coords } = null;
   constructor(oldGameState?: GameState) {
     this.squares =
       oldGameState?.squares?.slice() || Array(10).fill(blankSquare, 1);
@@ -23,6 +24,11 @@ export class GameState {
     if (win) {
       this.winner = win.winner;
       this.winningSquares = win.winnningSquares;
+      console.log(this.winningSquares);
+      this.winningLine = {
+        start: win.winnningSquares[0],
+        end: win.winnningSquares[2],
+      };
     } else if (this.turnCount === 9) {
       this.winner = 'Tie';
     }

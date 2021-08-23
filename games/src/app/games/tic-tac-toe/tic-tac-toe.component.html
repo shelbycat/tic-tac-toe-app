@@ -1,3 +1,68 @@
+<ng-template #winningLine let-styles="styles">
+  <svg
+    class="winningLine"
+    viewBox="0 0 60 60"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <filter id="filter" filterUnits="userSpaceOnUse">
+        <feTurbulence baseFrequency=".4" numOctaves="3" type="fractalNoise" />
+        <feDisplacementMap scale="2" xChannelSelector="R" in="SourceGraphic" />
+      </filter>
+    </defs>
+    <line
+      style="filter: url(#filter)"
+      [attr.x1]="styles.x1"
+      [attr.y1]="styles.y1"
+      [attr.x2]="styles.x2"
+      [attr.y2]="styles.y2"
+      stroke-width="2"
+      stroke-linecap="round"
+      [attr.stroke]="styles.strokecolor1"
+    />
+    <line
+      style="filter: url(#filter)"
+      [attr.x1]="styles.x1"
+      [attr.y1]="styles.y1"
+      [attr.x2]="styles.x2"
+      [attr.y2]="styles.y2"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      [attr.stroke]="styles.strokecolor2"
+    />
+  </svg>
+</ng-template>
+<ng-template #catsGame let-styles="styles">
+  <svg
+    class="winningLine"
+    viewBox="0 0 60 60"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <filter id="filter" filterUnits="userSpaceOnUse">
+        <feTurbulence baseFrequency=".4" numOctaves="3" type="fractalNoise" />
+        <feDisplacementMap scale="2" xChannelSelector="R" in="SourceGraphic" />
+      </filter>
+    </defs>
+    <path
+      style="filter: url(#filter)"
+      [attr.d]="styles.path"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      [attr.stroke]="styles.strokecolor1"
+    />
+    <path
+      style="filter: url(#filter)"
+      [attr.d]="styles.path"
+      fill="none"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      [attr.stroke]="styles.strokecolor2"
+    />
+  </svg>
+</ng-template>
+
 <div class="game">
   <div class="header">
     <h2>{{ message$ | async }}</h2>
@@ -7,18 +72,22 @@
       <ng-template
         ngFor
         let-square
-        [ngForOf]="currentGameState.squares"
-        let-index="index"
+        [ngForOf]="currentGameState.squares | slice: 1"
+        let-index="index + 1"
       >
-        <button
-          *ngIf="square"
-          (click)="markSquare(index)"
-          [disabled]="squareDisabled(square)"
-        >
+        <button (click)="markSquare(index)" [disabled]="squareDisabled(square)">
           <!-- {{ square || index }} -->
           {{ square }}
         </button>
       </ng-template>
+      <ng-container
+        *ngTemplateOutlet="
+          currentGameState.winner === 'Tie' ? catsGame : winningLine;
+          context: { styles: getWinningLineStyle() }
+        "
+        [ngIf]="currentGameState.winner"
+      >
+      </ng-container>
     </div>
     <div class="history">
       <h4>History</h4>

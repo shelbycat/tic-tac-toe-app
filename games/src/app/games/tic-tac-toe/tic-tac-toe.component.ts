@@ -31,7 +31,13 @@ export class TicTacToeComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.markSquare(1);
+    this.markSquare(4);
+    this.markSquare(2);
+    this.markSquare(5);
+    this.markSquare(6);
+  }
 
   setMessage(value: string | Observable<string>) {
     this.message$ = value instanceof Observable ? value : of(value);
@@ -137,5 +143,33 @@ export class TicTacToeComponent implements OnInit {
       !this.couchCoOp &&
       this.playerSymbol !== this.currentGameState.currentPlayer;
     return squareMarked || gameWon || notYourTurn;
+  }
+
+  getWinningLineStyle() {
+    if (!this.currentGameState.winner) {
+      return { x1: -10, y1: -10, x2: -10, y2: -10 };
+    }
+    if (this.currentGameState.winner === 'Tie') {
+      return {
+        path: 'M 6,50 C 86,-65 56,130 6,10',
+
+        strokecolor1: '#333',
+        strokecolor2: 'green',
+      };
+    }
+    console.log(this.currentGameState.winningLine);
+    const coordA = this.currentGameState.winningLine.start - 1;
+    const coordB = this.currentGameState.winningLine.end - 1;
+    console.log(coordA, coordB);
+    const results = {
+      x1: (coordA % 3) * 20 + 10,
+      y1: ((coordA - (coordA % 3)) / 3) * 20 + 10,
+      x2: (coordB % 3) * 20 + 10,
+      y2: ((coordB - (coordB % 3)) / 3) * 20 + 10,
+      strokecolor1: '#333',
+      strokecolor2: 'green',
+    };
+    console.log(results);
+    return results;
   }
 }

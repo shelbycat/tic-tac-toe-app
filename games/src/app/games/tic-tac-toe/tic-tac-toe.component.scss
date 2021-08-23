@@ -47,6 +47,7 @@
   height: 210px;
   width: 210px;
   flex-shrink: 0;
+  position: relative;
   align-self: center;
   margin: 0;
   display: flex;
@@ -71,5 +72,10 @@
     &:active:not(:disabled) {
       box-shadow: 0 0 10px 5px black inset;
     }
+  }
+  svg.winningLine {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
   }
 }
