@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { takeWhile, tap } from 'rxjs/operators';
+import { getRandomItem } from 'src/app/utilities';
 import { RagamuffinBot } from './bots/ragamuffin-bot';
+import { RagdollBot } from './bots/ragdoll-bot';
 import {
   GameState,
   blankSquare,
@@ -20,7 +22,8 @@ export class TicTacToeComponent implements OnInit {
   history = [new GameState()];
   currentStepPointer = 0;
   playerSymbol: 'X' | 'O' = 'X';
-  bot: Bot = new RagamuffinBot();
+  possibleBots = [new RagamuffinBot(), new RagdollBot()];
+  bot: Bot = getRandomItem(this.possibleBots);
   message$: Observable<string> = of('Welcome to Tic Tac Toe.  X goes first.');
   botAnswerSub: Subscription;
   couchCoOp = true;
@@ -90,6 +93,7 @@ export class TicTacToeComponent implements OnInit {
   restart() {
     this.currentStepPointer = 0;
     this.history = [new GameState()];
+    this.bot = getRandomItem(this.possibleBots);
     this.updateGameState();
   }
   undo() {
