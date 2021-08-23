@@ -4,6 +4,7 @@ import { getRandomItem } from 'src/app/utilities';
 import { blankSquare, getAllCoords } from '../game-state';
 
 export class RagdollBot implements Bot {
+  name = 'Ragdoll';
   initialize() {}
   getNextMove(gameState: GameState) {
     const openSquares = getAllCoords().filter(
