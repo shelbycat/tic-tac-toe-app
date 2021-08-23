@@ -3,24 +3,17 @@ import { delay, map } from 'rxjs/operators';
 import { getRandomItem } from 'src/app/utilities';
 import { blankSquare, getAllCoords } from '../game-state';
 
-export class RagamuffinBot implements Bot {
+export class RagdollBot implements Bot {
   initialize() {}
   getNextMove(gameState: GameState) {
     const openSquares = getAllCoords().filter(
       (i) => gameState.squares[i] === blankSquare
     );
     const mySquare = getRandomItem(openSquares);
-    return of(mySquare).pipe(delay(1400));
+    return of(mySquare).pipe(delay(400));
   }
   getMessage(gameState: GameState) {
-    const message$ = from([
-      'Hold on.',
-      'Hold on..',
-      'Hold on...',
-      'The ragamuffin is thinking.',
-      'The ragamuffin is thinking..',
-      'The ragamuffin is thinking...',
-    ]);
-    return zip(interval(200), message$).pipe(map(([time, message]) => message));
+    const message$ = from(["Hold on.  I'm thinking."]);
+    return message$;
   }
 }
