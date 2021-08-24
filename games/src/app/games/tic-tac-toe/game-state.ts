@@ -24,7 +24,6 @@ export class GameState {
     if (win) {
       this.winner = win.winner;
       this.winningSquares = win.winnningSquares;
-      console.log(this.winningSquares);
       this.winningLine = {
         start: win.winnningSquares[0],
         end: win.winnningSquares[2],

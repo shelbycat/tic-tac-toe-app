@@ -171,10 +171,8 @@ export class TicTacToeComponent implements OnInit {
         strokecolor2: 'green',
       };
     }
-    console.log(this.currentGameState.winningLine);
     const coordA = this.currentGameState.winningLine.start - 1;
     const coordB = this.currentGameState.winningLine.end - 1;
-    console.log(coordA, coordB);
     const results = {
       x1: (coordA % 3) * 20 + 10,
       y1: ((coordA - (coordA % 3)) / 3) * 20 + 10,
@@ -183,7 +181,6 @@ export class TicTacToeComponent implements OnInit {
       strokecolor1: '#333',
       strokecolor2: 'green',
     };
-    console.log(results);
     return results;
   }
 }
