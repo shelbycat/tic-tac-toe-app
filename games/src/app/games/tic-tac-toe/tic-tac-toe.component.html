@@ -101,9 +101,28 @@
       </ol>
     </div>
     <div class="buttons vertical">
-      <button (click)="playAs('both')">Couch Co-Op</button>
-      <button (click)="playAs('X')">Play as X</button>
-      <button (click)="playAs('O')">Play as O</button>
+      <label>
+        Player X
+        <br />
+        <select [(ngModel)]="playerX" (ngModelChange)="restart()">
+          <option value="Human">Human</option>
+          <option disabled>⎯⎯⎯⎯⎯Bots⎯⎯⎯⎯⎯</option>
+          <option *ngFor="let opt of possibleBots" [ngValue]="opt">
+            {{ opt.name }}
+          </option>
+        </select>
+      </label>
+      <label>
+        Player O
+        <br />
+        <select [(ngModel)]="playerO" (ngModelChange)="restart()">
+          <option value="Human">Human</option>
+          <option disabled>⎯⎯⎯⎯⎯Bots⎯⎯⎯⎯⎯</option>
+          <option *ngFor="let opt of possibleBots" [ngValue]="opt">
+            {{ opt.name }}
+          </option>
+        </select>
+      </label>
       <button (click)="restart()">Restart</button>
       <button (click)="undo()">Undo</button>
       <button (click)="redo()">Redo</button>

@@ -21,12 +21,25 @@ export class TicTacToeComponent implements OnInit {
   readonly blankSquare = blankSquare;
   history = [new GameState()];
   currentStepPointer = 0;
-  playerSymbol: 'X' | 'O' = 'X';
+  playerX: 'Human' | Bot = 'Human';
+  playerO: 'Human' | Bot = 'Human';
+  get playerSymbol() {
+    if (this.playerX === 'Human' && this.playerO === 'Human') {
+      return 'both';
+    } else if (this.playerX === 'Human') {
+      return 'X';
+    } else if (this.playerO === 'Human') {
+      return 'O';
+    } else {
+      return null;
+    }
+  }
   possibleBots = [new RagamuffinBot(), new RagdollBot()];
-  bot: Bot = getRandomItem(this.possibleBots);
   message$: Observable<string> = of('Welcome to Tic Tac Toe.  X goes first.');
   botAnswerSub: Subscription;
-  couchCoOp = true;
+  get couchCoOp() {
+    return this.playerX === 'Human' && this.playerO === 'Human';
+  }
 
   get currentGameState() {
     return this.history[this.currentStepPointer];
@@ -61,18 +74,22 @@ export class TicTacToeComponent implements OnInit {
       } else {
         this.setMessage(`Player ${this.currentGameState.winner} won!`);
       }
-    } else if (this.couchCoOp) {
-      this.setMessage(`Player ${this.currentGameState.currentPlayer}'s turn`);
-    } else if (this.playerSymbol === this.currentGameState.currentPlayer) {
-      this.setMessage('Your turn');
     } else {
-      this.startBotCountdown();
+      const currentSymbol = this.currentGameState.currentPlayer;
+      const currentPlayer = currentSymbol === 'X' ? this.playerX : this.playerO;
+      if (this.couchCoOp) {
+        this.setMessage(`Player ${currentSymbol}'s turn`);
+      } else if (currentPlayer === 'Human') {
+        this.setMessage(`Your Turn, Player ${currentSymbol}`);
+      } else {
+        this.startBotCountdown(currentPlayer);
+      }
     }
   }
 
-  startBotCountdown() {
-    const botMessage$ = this.bot.getMessage(this.currentGameState);
-    const botNextMove$ = this.bot.getNextMove(this.currentGameState).pipe(
+  startBotCountdown(bot: Bot) {
+    const botMessage$ = bot.getMessage(this.currentGameState);
+    const botNextMove$ = bot.getNextMove(this.currentGameState).pipe(
       takeWhile(
         () =>
           !this.couchCoOp &&
@@ -87,7 +104,6 @@ export class TicTacToeComponent implements OnInit {
   restart() {
     this.currentStepPointer = 0;
     this.history = [new GameState()];
-    this.bot = getRandomItem(this.possibleBots);
     this.updateGameState();
   }
   undo() {
@@ -116,15 +132,15 @@ export class TicTacToeComponent implements OnInit {
     }
     this.updateGameState();
   }
-  playAs(s: 'X' | 'O' | 'both') {
-    if (s === 'both') {
-      this.couchCoOp = true;
-    } else {
-      this.couchCoOp = false;
-      this.playerSymbol = s;
-    }
-    this.restart();
-  }
+  // playAs(s: 'X' | 'O' | 'both') {
+  //   if (s === 'both') {
+  //     this.couchCoOp = true;
+  //   } else {
+  //     this.couchCoOp = false;
+  //     this.playerSymbol = s;
+  //   }
+  //   this.restart();
+  // }
 
   /***** Presentation Logic *****/
 
