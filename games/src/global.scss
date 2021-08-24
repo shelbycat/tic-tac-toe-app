@@ -56,3 +56,7 @@ a {
 [color="light"] a {
   color: var(--ion-color-light-contrast);
 }
+
+p {
+  max-width: 30em;
+}
