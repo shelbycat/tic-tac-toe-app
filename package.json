@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "install": "cd ./games && npm ci",
     "start": "cd ./games && npm start",
     "build": "cd ./games && npm run build",
     "prettify": "prettier --write ."
